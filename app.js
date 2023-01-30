@@ -4,12 +4,15 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+const session = require('express-session');
+
 // ページをモジュールとして読み込む
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const pageRouter = require('./routes/page');
 const queryRouter = require('./routes/query');
 const formRouter = require('./routes/form');
+const sessionRouter = require('./routes/session');
 
 var app = express();
 
@@ -23,12 +26,22 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// セッション
+var session_opt = {
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { maxAge: 60 * 60 * 1000}
+};
+app.use(session(session_opt));
+
 // アドレスのルーティングはここに記載
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/page', pageRouter);
 app.use('/query', queryRouter);
 app.use('/form', formRouter);
+app.use('/session', sessionRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
