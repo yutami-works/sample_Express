@@ -12,7 +12,7 @@ var usersRouter = require('./routes/users');
 const pageRouter = require('./routes/page');
 const queryRouter = require('./routes/query');
 const formRouter = require('./routes/form');
-const sessionRouter = require('./routes/session');
+const sessionRouter = require('./routes/session'); // express-session
 
 var app = express();
 
@@ -26,7 +26,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// セッション
+// express-sessionのオプション
 var session_opt = {
   secret: 'keyboard cat',
   resave: false,
