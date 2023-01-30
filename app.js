@@ -13,6 +13,7 @@ const pageRouter = require('./routes/page');
 const queryRouter = require('./routes/query');
 const formRouter = require('./routes/form');
 const sessionRouter = require('./routes/session'); // express-session
+const xmlRouter = require('./routes/xml'); // xml
 
 var app = express();
 
@@ -42,6 +43,7 @@ app.use('/page', pageRouter);
 app.use('/query', queryRouter);
 app.use('/form', formRouter);
 app.use('/session', sessionRouter);
+app.use('/xml', xmlRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
